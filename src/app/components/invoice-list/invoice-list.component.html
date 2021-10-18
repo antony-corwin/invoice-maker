@@ -1,0 +1,34 @@
+<section class="invoice-list">
+  <h1>Invoices</h1>
+
+  <button mat-raised-button routerLink="/invoice/new">add invoice</button>
+
+  <mat-form-field appearance="outline" (focusout)="onFilterSellers()">
+    <mat-label>Selected sellers</mat-label>
+    <mat-select [formControl]="sellersControl" multiple [value]="sellersList">
+      <mat-option *ngFor="let seller of sellersList" [value]="seller">{{seller.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <table class="invoice-table">
+    <tr>
+      <th>{{'invoice number' | titlecase}}</th>
+      <th>{{'seller name' | titlecase}}</th>
+      <th>{{'invoice amount' | titlecase}}</th>
+      <th>Action</th>
+    </tr>
+    <ng-container *ngFor="let invoice of (invoices | async)">
+      <tr>
+        <td><a [routerLink]="['/invoice', invoice.invoiceNumber]">{{invoice.invoiceNumber}}</a></td>
+        <td><a [routerLink]="['/invoice', invoice.invoiceNumber]">{{invoice.seller.name}}</a></td>
+        <td><a [routerLink]="['/invoice', invoice.invoiceNumber]">{{invoice.invoiceAmount}}</a></td>
+        <td>
+          <button mat-icon-button aria-label="delete invoice" (click)="onRemoveInvoice(invoice)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </ng-container>
+  </table>
+</section>
+

@@ -1,0 +1,52 @@
+<section class="container">
+  <form class="invoice-form" [formGroup]="invoiceData" (ngSubmit)="onSave()" (invalid)="!invoiceData.valid">
+
+    <div class="invoice-form__header">
+      <h1>Create new invoice</h1>
+    </div>
+
+    <div class="invoice-form__body">
+      <mat-form-field appearance="outline" (click)="invoiceDatePicker.open()">
+        <mat-label>Invoice date</mat-label>
+        <input matInput [matDatepicker]="invoiceDatePicker" formControlName="invoiceDate" [disabled]="true">
+        <mat-datepicker-toggle matSuffix [for]="invoiceDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #invoiceDatePicker disabled="false"></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Invoice number</mat-label>
+        <input matInput type="number" formControlName="invoiceNumber">
+      </mat-form-field>
+
+      <div class="invoice-form__body__seller">
+        <mat-form-field appearance="outline">
+          <mat-label>Choose seller</mat-label>
+          <mat-select formControlName="seller">
+            <ng-container *ngFor="let seller of sellers">
+              <mat-option [value]="seller">{{seller.name}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+
+        <ng-container *ngIf="invoiceData.value.seller">
+          <span>Seller:</span>
+          <div class="invoice-form__body__seller-info">
+            <span>id: {{invoiceData.value.seller.id}}</span>
+            <span>name: {{invoiceData.value.seller.name}}</span>
+            <span>address: {{invoiceData.value.seller.address}}</span>
+          </div>
+        </ng-container>
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Invoice amount</mat-label>
+        <input matInput type="number" formControlName="invoiceAmount">
+      </mat-form-field>
+    </div>
+
+    <div class="invoice-form__footer">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!invoiceData.valid">save</button>
+      <button mat-raised-button routerLink="/">cancel</button>
+    </div>
+  </form>
+</section>

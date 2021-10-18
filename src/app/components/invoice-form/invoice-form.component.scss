@@ -1,0 +1,49 @@
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.invoice-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__header {
+
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (min-width:1024px) {
+      flex-direction: row;
+      gap: 1rem;
+    }
+
+    &__seller {
+      display: flex;
+      flex-direction: column;
+
+      &-info {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+
+  &__footer {
+    margin-top: 4rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    @media screen and (min-width:1024px) {
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+  }
+}
